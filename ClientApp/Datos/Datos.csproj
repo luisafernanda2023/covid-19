@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+<packagereference Include ="System.collections"version=4.3.0"/>
+<packagereference Include ="System.data.sqlclient"version=4.8.1"/>
+</itemgroup>
+
+<itemgroup>
+<packagereference Include="..\entity\entity.csproj"/>
+</itemgroup>
+</Project>

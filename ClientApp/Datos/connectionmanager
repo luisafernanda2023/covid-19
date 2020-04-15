@@ -1,0 +1,113 @@
+public void Guardar(estampilla=estampilla)
+
+{
+
+using (var command = _connection.CreateCommand())
+
+{
+
+command.CommandText = @"Insert Into estampilla (numerodecontrato,objectodecontrto,valordecontrato, apoyaemergenciacovi19, valorestampilla)
+
+values (@Innumerodecontrato,@objectodecontrato,@valordecontrato,@apoyaemergenciacovi19,@valorestampilla)";
+
+command.Parameters.AddWithValue("@numerodecontrato");
+
+command.Parameters.AddWithValue("@objectodecontrato");
+
+command.Parameters.AddWithValue("@valordecontrato");
+
+command.Parameters.AddWithValue("@apoyaemergenciacovi19");
+
+command.Parameters.AddWithValue("@valorestampilla");
+
+var filas = command.ExecuteNonQuery();
+
+}
+
+}
+
+public List<estampilla> ConsultarTodos()
+
+{
+
+SqlDataReader dataReader;
+
+List<estampilla> estampilla = new List<estampilla>();
+
+using (var command = _connection.CreateCommand())
+
+{
+
+command.CommandText = "Select * from estampilla ";
+
+dataReader = command.ExecuteReader();
+
+if (dataReader.HasRows)
+
+{
+
+while (dataReader.Read())
+
+{
+
+estampilla = DataReaderMapToestampilla(dataReader);
+
+estampilla.Add(estampilla);
+
+}
+
+}
+
+}
+
+return estampilla;
+
+}
+
+
+
+
+public estampilla BuscarPorIdentificacion(string numerodecontrato)
+
+{
+
+SqlDataReader dataReader;
+
+using (var command = _connection.CreateCommand())
+
+{
+
+command.CommandText = "select * from estampilla where numerodecontrato=@numerodecontrato";
+
+command.Parameters.AddWithValue("@numerodecontrato", numerodecontrato);
+
+dataReader = command.ExecuteReader();
+
+dataReader.Read();
+
+return DataReaderMapToestampilla(dataReader);
+
+}
+
+}
+
+private estampilla DataReaderMapToPerson(SqlDataReader dataReader)
+
+{
+
+if(!dataReader.HasRows) return null;
+
+Persona persona = new Persona();
+
+estampilla.numerodecontrato = (scdg)dataReader["numerodecontrato"];
+
+estampilla.objectodecontrato = (string)dataReader["objectodecontrato"];
+
+estampilla.valordecontrato = (string)dataReader["valordecontrato"];
+
+estampilla.apoyaemergenciacovi19 = (int)dataReader["apoyaemergenciacovi19"];
+
+return estampilla;
+
+}
+
